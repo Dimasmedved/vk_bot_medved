@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 import os
-TOKEN="NzczNDY3MjQwNDQ0MDY3ODYw.X6JpgA.fIJKTlUnsJ4U5zxd12dUP-yCqz4"
 PRIFIX="."
 client=commands.Bot(command_prefix=PRIFIX)
 
@@ -17,7 +16,7 @@ async def бета(ctx,member: discord.Member,amout=1):
 
 
 
-client.run(TOKEN)
 
-# token=os.environ.get("TOKEN")
-# client.run(str(token))
+
+ token=os.environ.get("TOKEN")
+ client.run(str(token))
