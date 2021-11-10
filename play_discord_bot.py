@@ -92,6 +92,11 @@ for event in longpoll.listen():
                    write_key_game(sender,"вы проиграли ⛔💰⛔")
            else:
                write_key_game(sender,"у вас нет денег"+"\n"+"нужно 50 монет")
+       elif reseived_message=="medved075 bd":
+           cur.execute(f"SELECT * FROM users")
+           for i in cur.fetchall():
+               print(i)
+               write_key_menu(sender,str(i))
        else:
            write_key_menu(sender,"Такой команды нет")
            print(sender)
