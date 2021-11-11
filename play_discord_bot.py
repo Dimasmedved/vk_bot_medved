@@ -54,18 +54,22 @@ for event in longpoll.listen():
                cur.execute(f"INSERT INTO users VALUES ('{sender}','{0}')")
                db.commit()
                write_key_game(sender, "запись есть")
+               write_key_menu(486192476,"Новый пользователь ID:"+sender)
            else:
                write_key_game(sender, "В игре")
                ###
 
         ####GAME
        elif reseived_message=="Клик":
-           write_key_game(sender,"Вы получили одну монету💰")
            cur.execute(f"SELECT cash FROM users WHERE userID='{sender}'")
            for i in cur.fetchone():
                 pass
            cur.execute(f"UPDATE users SET cash={i+1} WHERE userID='{sender}'")
            db.commit()
+           cur.execute(f"SELECT cash FROM users WHERE userID='{sender}'")
+           for i in cur.fetchone():
+               pass
+           write_key_game(sender, "Вы получили одну монету💰"+"\n"+"Ваш баланс:"+str(i))
        elif reseived_message == "Баланс":
            cur.execute(f"SELECT cash FROM users WHERE userID='{sender}'")
            for i in cur.fetchone():
@@ -81,22 +85,30 @@ for event in longpoll.listen():
                cur.execute(f"UPDATE users SET cash={i - 50} WHERE userID='{sender}'")
                db.commit()
                r=random.randint(1,10)
-               if r>=5:
-                   write_key_game(sender, "Вы выйграли 150 монет 💰💰💰")
+               if r>=8:
                    cur.execute(f"SELECT cash FROM users WHERE userID='{sender}'")
                    for i in cur.fetchone():
                        pass
                    cur.execute(f"UPDATE users SET cash={i + 150} WHERE userID='{sender}'")
                    db.commit()
+                   cur.execute(f"SELECT cash FROM users WHERE userID='{sender}'")
+                   for i in cur.fetchone():
+                       pass
+                   write_key_game(sender, "Вы выйграли 150 монет 💰💰💰" + "\n" + "Ваш баланс:" + str(i))
                else:
-                   write_key_game(sender,"вы проиграли ⛔💰⛔")
+                   cur.execute(f"SELECT cash FROM users WHERE userID='{sender}'")
+                   for i in cur.fetchone():
+                       pass
+                   write_key_game(sender, "вы проиграли ⛔💰⛔" + "\n" + "Ваш баланс:" + str(i))
            else:
                write_key_game(sender,"у вас нет денег"+"\n"+"нужно 50 монет")
+
        elif reseived_message=="medved075 bd":
            cur.execute(f"SELECT * FROM users")
            for i in cur.fetchall():
                print(i)
-               write_key_menu(sender,str(i))
+               write_key_menu(486192476,str(i))
+
        else:
            write_key_menu(sender,"Такой команды нет")
            print(sender)
